@@ -64,8 +64,6 @@ This project is an end-to-end data analysis solution designed to extract critica
    
    This section includes MySQL queries solving real-world business problems from a retail dataset (Walmart), focusing on revenue, customer behavior, ratings, and sales performance.
 
----
-
 #### 📌 Q1: Find different payment methods, number of transactions, and quantity sold
 
 **Objective:** Understand payment preferences and volume sold.
@@ -78,6 +76,142 @@ SELECT
 FROM walmart
 GROUP BY payment_method;
 ```
+#### 📌 Q2: Which product category has the highest average rating in each branch?
+
+**Objective:** Identify top-rated categories by customer satisfaction in each branch.
+
+**Explanation:**
+Ranks average product ratings for each category within each branch using the RANK() function.
+
+```sql
+SELECT *
+FROM (
+    SELECT  
+        branch, 
+        category, 
+        AVG(rating) AS avg_rating,
+        RANK() OVER(PARTITION BY branch ORDER BY AVG(rating) DESC) AS rank_
+    FROM walmart 
+    GROUP BY branch, category
+) AS rank_of_avg_rating
+WHERE rank_ = 1;
+```
+**Insight:**
+Highlights customer-preferred categories per location, aiding targeted inventory and promotions.
+
+#### 📌 Q3: What is the busiest day for each branch?
+
+**Explanation:**
+Groups transactions by weekday per branch and ranks them to find the highest.
+
+```sql
+SELECT *
+FROM (
+    SELECT 
+        branch,
+        DAYNAME(STR_TO_DATE(date, '%d/%m/%Y')) AS day_name,
+        COUNT(*) AS no_transactions,
+        RANK() OVER(PARTITION BY branch ORDER BY COUNT(*) DESC) AS rank_
+    FROM walmart
+    GROUP BY branch, day_name
+) AS rank_of_trans
+WHERE rank_ = 1;
+```
+**Insight:**
+Ideal for staffing decisions, promotions, and understanding peak customer activity.
+
+#### 📌 Q4: What is the total quantity sold for each payment method?
+
+**Explanation:**
+Sums up all quantities sold per payment method.
+
+```sql
+SELECT 
+    payment_method, 
+    SUM(quantity) AS quantity_sold
+FROM walmart
+GROUP BY payment_method;
+```
+**Insight:**
+Reveals which payment types tend to result in bulk buying behavior.
+
+📌 Q5: What is the average, min, and max rating for each category in each city?
+
+**Explanation:**
+Aggregates rating stats for each category in every city.
+
+```sql
+SELECT 
+    city,
+    category,
+    AVG(rating) AS avg_rating, 
+    MIN(rating) AS min_rating, 
+    MAX(rating) AS max_rating 
+FROM walmart 
+GROUP BY city, category;
+```
+**Insight:**
+Identifies cities where certain product categories are underperforming or excelling.
+
+#### 📌 Q6: What is the total profit earned from each category?
+
+**Explanation:**
+Calculates total profit per category using unit price, quantity, and profit margin.
+
+```sql
+SELECT 
+    category,
+    SUM(unit_price * quantity * profit_margin) AS total_profit
+FROM walmart
+GROUP BY category
+ORDER BY total_profit DESC;
+```
+**Insight:**
+Guides investment in top-performing categories and reconsideration of low-profit ones.
+
+#### 📌 Q7: What is the most commonly used payment method in each branch?
+**Explanation:**
+Ranks payment methods by transaction count for each branch.
+
+```sql
+WITH cte AS (
+    SELECT 
+        branch,
+        payment_method,
+        COUNT(*) AS total_trans,
+        RANK() OVER(PARTITION BY branch ORDER BY COUNT(*) DESC) AS rank_
+    FROM walmart
+    GROUP BY branch, payment_method
+)
+SELECT branch, payment_method AS preferred_payment_method
+FROM cte
+WHERE rank_ = 1;
+```
+**Insight:**
+Supports branch-specific marketing and payment system improvements.
+
+#### 📌 Q8: What are the most active sales shifts (Morning/Afternoon/Evening)?
+
+**Explanation:**
+Categorizes transactions into time-based shifts and counts invoices.
+
+```sql
+SELECT
+    branch,
+    CASE 
+        WHEN HOUR(TIME(time)) < 12 THEN 'Morning'
+        WHEN HOUR(TIME(time)) BETWEEN 12 AND 17 THEN 'Afternoon'
+        ELSE 'Evening'
+    END AS shift,
+    COUNT(*) AS num_invoices
+FROM walmart
+GROUP BY branch, shift
+ORDER BY branch, num_invoices DESC;
+```
+**Insight:**
+Helps schedule staff and promotions based on high-traffic hours.
+
+
 
 ### 10. Project Publishing and Documentation
    - **Documentation**: Maintain well-structured documentation of the entire process in Markdown or a Jupyter Notebook.
