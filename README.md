@@ -76,6 +76,12 @@ SELECT
 FROM walmart
 GROUP BY payment_method;
 ```
+Result:
+
+![q1](https://i.ibb.co/WvWMk3BL/Screenshot-2025-07-18-010722.png)
+
+**Insight:** Helps the business optimize for the most-used payment methods and improve transaction efficiency.
+
 #### 📌 Q2: Which product category has the highest average rating in each branch?
 
 **Objective:** Identify top-rated categories by customer satisfaction in each branch.
@@ -135,7 +141,7 @@ GROUP BY payment_method;
 **Insight:**
 Reveals which payment types tend to result in bulk buying behavior.
 
-📌 Q5: What is the average, min, and max rating for each category in each city?
+#### 📌 Q5: What is the average, min, and max rating for each category in each city?
 
 **Explanation:**
 Aggregates rating stats for each category in every city.
