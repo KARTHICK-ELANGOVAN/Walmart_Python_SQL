@@ -54,7 +54,7 @@ This project is an end-to-end data analysis solution designed to extract critica
    - **Verification**: Run initial SQL queries to confirm that the data has been loaded accurately.
 
 ### 9. SQL Analysis: Complex Queries and Business Problem Solving
-   - **Business Problem-Solving**: Write and execute complex SQL queries to answer critical business questions, such as:
+   - ***Business Problem-Solving***: Write and execute complex SQL queries to answer critical business questions, such as:
      - Revenue trends across branches and categories.
      - Identifying best-selling product categories.
      - Sales performance by time, city, and payment method.
