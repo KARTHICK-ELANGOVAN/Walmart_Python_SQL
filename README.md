@@ -54,13 +54,30 @@ This project is an end-to-end data analysis solution designed to extract critica
    - **Verification**: Run initial SQL queries to confirm that the data has been loaded accurately.
 
 ### 9. SQL Analysis: Complex Queries and Business Problem Solving
-   - ***Business Problem-Solving***: Write and execute complex SQL queries to answer critical business questions, such as:
+   - ****Business Problem-Solving****: Write and execute complex SQL queries to answer critical business questions, such as:
      - Revenue trends across branches and categories.
      - Identifying best-selling product categories.
      - Sales performance by time, city, and payment method.
      - Analyzing peak sales periods and customer buying patterns.
      - Profit margin analysis by branch and category.
    - **Documentation**: Keep clear notes of each query's objective, approach, and results.
+   
+   This section includes MySQL queries solving real-world business problems from a retail dataset (Walmart), focusing on revenue, customer behavior, ratings, and sales performance.
+
+---
+
+#### 📌 Q1: Find different payment methods, number of transactions, and quantity sold
+
+**Objective:** Understand payment preferences and volume sold.
+
+```sql
+SELECT 
+    payment_method, 
+    COUNT(*) AS no_payment, 
+    SUM(quantity) AS no_of_quan_sold
+FROM walmart
+GROUP BY payment_method;
+```
 
 ### 10. Project Publishing and Documentation
    - **Documentation**: Maintain well-structured documentation of the entire process in Markdown or a Jupyter Notebook.
