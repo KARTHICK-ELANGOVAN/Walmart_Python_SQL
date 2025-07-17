@@ -77,7 +77,6 @@ FROM walmart
 GROUP BY payment_method;
 ```
 Result:
-
 ![q1](https://i.ibb.co/WvWMk3BL/Screenshot-2025-07-18-010722.png)
 
 **Insight:** Helps the business optimize for the most-used payment methods and improve transaction efficiency.
@@ -102,6 +101,9 @@ FROM (
 ) AS rank_of_avg_rating
 WHERE rank_ = 1;
 ```
+Result:
+![q2](https://i.ibb.co/PzjjB6tC/Screenshot-2025-07-18-010806.png)
+
 **Insight:**
 Highlights customer-preferred categories per location, aiding targeted inventory and promotions.
 
@@ -123,6 +125,9 @@ FROM (
 ) AS rank_of_trans
 WHERE rank_ = 1;
 ```
+Result:
+![q3](https://i.ibb.co/VY4kZFBc/Screenshot-2025-07-18-010828.png)
+
 **Insight:**
 Ideal for staffing decisions, promotions, and understanding peak customer activity.
 
@@ -138,6 +143,9 @@ SELECT
 FROM walmart
 GROUP BY payment_method;
 ```
+Result:
+![q4](https://i.ibb.co/KxQwSgdR/Screenshot-2025-07-18-010847.png)
+
 **Insight:**
 Reveals which payment types tend to result in bulk buying behavior.
 
@@ -156,6 +164,10 @@ SELECT
 FROM walmart 
 GROUP BY city, category;
 ```
+
+Result:
+![q5](https://i.ibb.co/JWRwxYMC/Screenshot-2025-07-18-010912.png)
+
 **Insight:**
 Identifies cities where certain product categories are underperforming or excelling.
 
@@ -172,6 +184,10 @@ FROM walmart
 GROUP BY category
 ORDER BY total_profit DESC;
 ```
+
+Result:
+![q6](https://i.ibb.co/0jyBS9wz/Screenshot-2025-07-18-011444.png)
+
 **Insight:**
 Guides investment in top-performing categories and reconsideration of low-profit ones.
 
@@ -193,6 +209,9 @@ SELECT branch, payment_method AS preferred_payment_method
 FROM cte
 WHERE rank_ = 1;
 ```
+Result:
+![q7](https://i.ibb.co/jk57xq1S/Screenshot-2025-07-18-011503.png)
+
 **Insight:**
 Supports branch-specific marketing and payment system improvements.
 
@@ -214,6 +233,9 @@ FROM walmart
 GROUP BY branch, shift
 ORDER BY branch, num_invoices DESC;
 ```
+Result:
+![q4](https://i.ibb.co/LhSVczc7/Screenshot-2025-07-18-011526.png)
+
 **Insight:**
 Helps schedule staff and promotions based on high-traffic hours.
 
